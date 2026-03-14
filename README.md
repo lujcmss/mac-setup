@@ -9,7 +9,9 @@ Personal Mac terminal environment: iTerm2, Oh My Zsh, Powerlevel10k, and dotfile
 | `iterm2/` | iTerm2 preferences (gruvbox theme, profiles, keybindings) |
 | `zsh/` | `.zshrc` (Oh My Zsh + Powerlevel10k) and `.p10k.zsh` |
 | `git/` | `.gitconfig` |
-| `Brewfile` | Homebrew packages (iTerm2, gh, tmux, node, python, go) |
+| `vim/` | `.vimrc` (syntax, indentation, search, UI, clipboard) |
+| `tmux/` | `.tmux.conf` (mouse support) |
+| `Brewfile` | Homebrew packages (iTerm2, Nerd Font, gh, tmux, node, python, go) |
 | `scripts/` | `bootstrap.sh` (fresh Mac) and `setup.sh` (post-clone) |
 
 ## Quick start (fresh Mac)
@@ -26,7 +28,7 @@ This single command will:
 4. Clone this repo
 5. Install all brew packages (iTerm2, gh, tmux, node, python, go)
 6. Install Oh My Zsh + Powerlevel10k
-7. Symlink dotfiles (.gitconfig, .zshrc, .p10k.zsh)
+7. Symlink dotfiles (.gitconfig, .zshrc, .p10k.zsh, .vimrc, .tmux.conf)
 8. Import iTerm2 preferences
 
 > **Note:** The script is re-runnable. If it pauses for SSH key setup, add the key to
@@ -42,5 +44,7 @@ plutil -convert xml1 -o iterm2/com.googlecode.iterm2.plist ~/Library/Preferences
 cp ~/.zshrc zsh/.zshrc
 cp ~/.p10k.zsh zsh/.p10k.zsh
 cp ~/.gitconfig git/.gitconfig
+cp ~/.vimrc vim/.vimrc
+cp ~/.tmux.conf tmux/.tmux.conf
 git add -A && git commit -m "Update configs" && git push
 ```

@@ -44,11 +44,19 @@ echo "==> Linking zsh configs..."
 ln -sf "$REPO_DIR/zsh/.zshrc" "$HOME/.zshrc"
 ln -sf "$REPO_DIR/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
 
-# 7. Import iTerm2 preferences
+# 7. Symlink vim config
+echo "==> Linking vim config..."
+ln -sf "$REPO_DIR/vim/.vimrc" "$HOME/.vimrc"
+
+# 8. Symlink tmux config
+echo "==> Linking tmux config..."
+ln -sf "$REPO_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+
+# 9. Import iTerm2 preferences
 echo "==> Importing iTerm2 preferences..."
 cp "$REPO_DIR/iterm2/com.googlecode.iterm2.plist" "$HOME/Library/Preferences/com.googlecode.iterm2.plist"
 
-# 8. Authenticate GitHub CLI if needed
+# 10. Authenticate GitHub CLI if needed
 if ! gh auth status &>/dev/null; then
   echo ""
   echo "==> GitHub CLI not authenticated. Run: gh auth login"
