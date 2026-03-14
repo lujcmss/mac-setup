@@ -1,4 +1,5 @@
 cask "iterm2"
+cask "font-meslo-lg-nerd-font"
 brew "gh"
 brew "tmux"
 brew "node@22"
