@@ -6,7 +6,7 @@ REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 echo "==> Mac iTerm2 Setup"
 echo ""
 
-# 1. Install Homebrew if missing
+# 1. Ensure Homebrew is available
 if ! command -v brew &>/dev/null; then
   echo "==> Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -35,30 +35,22 @@ else
   echo "==> Powerlevel10k already installed"
 fi
 
-# 5. Symlink zsh configs
+# 5. Symlink git config
+echo "==> Linking git config..."
+ln -sf "$REPO_DIR/git/.gitconfig" "$HOME/.gitconfig"
+
+# 6. Symlink zsh configs
 echo "==> Linking zsh configs..."
 ln -sf "$REPO_DIR/zsh/.zshrc" "$HOME/.zshrc"
 ln -sf "$REPO_DIR/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
-
-# 6. Symlink git config
-echo "==> Linking git config..."
-ln -sf "$REPO_DIR/git/.gitconfig" "$HOME/.gitconfig"
 
 # 7. Import iTerm2 preferences
 echo "==> Importing iTerm2 preferences..."
 cp "$REPO_DIR/iterm2/com.googlecode.iterm2.plist" "$HOME/Library/Preferences/com.googlecode.iterm2.plist"
 
-# 8. Set up SSH key if missing
-if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
-  echo "==> No SSH key found. Generate one with:"
-  echo "    ssh-keygen -t ed25519 -C \"your.email@example.com\""
-  echo "    Then add it to GitHub: https://github.com/settings/keys"
-else
-  echo "==> SSH key already exists"
-fi
-
-# 9. Authenticate GitHub CLI if needed
+# 8. Authenticate GitHub CLI if needed
 if ! gh auth status &>/dev/null; then
+  echo ""
   echo "==> GitHub CLI not authenticated. Run: gh auth login"
 else
   echo "==> GitHub CLI already authenticated"
