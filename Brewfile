@@ -1,0 +1,6 @@
+cask "iterm2"
+brew "gh"
+brew "tmux"
+brew "node@22"
+brew "python@3.11"
+brew "go"
