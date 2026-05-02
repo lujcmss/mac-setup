@@ -52,16 +52,38 @@ ln -sf "$REPO_DIR/vim/.vimrc" "$HOME/.vimrc"
 echo "==> Linking tmux config..."
 ln -sf "$REPO_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 
-# 9. Symlink Claude Code statusline script
+# 9. Install Claude Code (native installer; auto-upgrades in background)
+if ! command -v claude &>/dev/null && [ ! -x "$HOME/.local/bin/claude" ]; then
+  echo "==> Installing Claude Code..."
+  curl -fsSL https://claude.ai/install.sh | bash
+else
+  echo "==> Claude Code already installed"
+fi
+
+# 10. Symlink Claude Code statusline script + activate it in settings.json
 echo "==> Linking Claude Code statusline..."
 mkdir -p "$HOME/.claude"
 ln -sf "$REPO_DIR/claude/statusline-command.sh" "$HOME/.claude/statusline-command.sh"
 
-# 10. Import iTerm2 preferences
+if [ ! -f "$HOME/.claude/settings.json" ]; then
+  echo "==> Creating Claude settings.json with statusLine entry..."
+  cat > "$HOME/.claude/settings.json" <<'JSON'
+{
+  "statusLine": {
+    "type": "command",
+    "command": "sh ~/.claude/statusline-command.sh"
+  }
+}
+JSON
+else
+  echo "==> Claude settings.json already exists — leaving it alone (add statusLine entry manually if needed)"
+fi
+
+# 11. Import iTerm2 preferences
 echo "==> Importing iTerm2 preferences..."
 cp "$REPO_DIR/iterm2/com.googlecode.iterm2.plist" "$HOME/Library/Preferences/com.googlecode.iterm2.plist"
 
-# 11. Authenticate GitHub CLI if needed
+# 12. Authenticate GitHub CLI if needed
 if ! gh auth status &>/dev/null; then
   echo ""
   echo "==> GitHub CLI not authenticated. Run: gh auth login"

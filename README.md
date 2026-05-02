@@ -57,15 +57,10 @@ This single command installs Homebrew, generates an SSH key (pause to add to Git
 6. Symlink `.zshrc` and `.p10k.zsh`
 7. Symlink `.vimrc`
 8. Symlink `.tmux.conf`
-9. Symlink Claude statusline to `~/.claude/statusline-command.sh`
-10. Import iTerm2 preferences
-11. Verify GitHub CLI authentication
-
-> **Claude Code statusline activation:** the script gets symlinked to `~/.claude/statusline-command.sh`.
-> To activate, add this to `~/.claude/settings.json`:
-> ```json
-> "statusLine": { "type": "command", "command": "sh ~/.claude/statusline-command.sh" }
-> ```
+9. Install Claude Code (`curl -fsSL https://claude.ai/install.sh | bash`; auto-upgrades on re-runs)
+10. Symlink Claude statusline to `~/.claude/statusline-command.sh` and create `~/.claude/settings.json` with the `statusLine` entry (only if the file doesn't exist; otherwise the existing settings are left alone)
+11. Import iTerm2 preferences
+12. Verify GitHub CLI authentication
 
 ## Updating configs
 
