@@ -52,11 +52,16 @@ ln -sf "$REPO_DIR/vim/.vimrc" "$HOME/.vimrc"
 echo "==> Linking tmux config..."
 ln -sf "$REPO_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 
-# 9. Import iTerm2 preferences
+# 9. Symlink Claude Code statusline script
+echo "==> Linking Claude Code statusline..."
+mkdir -p "$HOME/.claude"
+ln -sf "$REPO_DIR/claude/statusline-command.sh" "$HOME/.claude/statusline-command.sh"
+
+# 10. Import iTerm2 preferences
 echo "==> Importing iTerm2 preferences..."
 cp "$REPO_DIR/iterm2/com.googlecode.iterm2.plist" "$HOME/Library/Preferences/com.googlecode.iterm2.plist"
 
-# 10. Authenticate GitHub CLI if needed
+# 11. Authenticate GitHub CLI if needed
 if ! gh auth status &>/dev/null; then
   echo ""
   echo "==> GitHub CLI not authenticated. Run: gh auth login"
