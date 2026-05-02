@@ -1,52 +1,78 @@
-# Mac iTerm2 Setup
+# Mac Setup
 
-Personal Mac terminal environment: iTerm2, Oh My Zsh, Powerlevel10k, and dotfiles.
-
-## What's included
-
-| Directory | Contents |
-|-----------|----------|
-| `iterm2/` | iTerm2 preferences (gruvbox theme, profiles, keybindings) |
-| `zsh/` | `.zshrc` (Oh My Zsh + Powerlevel10k) and `.p10k.zsh` |
-| `git/` | `.gitconfig` |
-| `vim/` | `.vimrc` (syntax, indentation, search, UI, clipboard) |
-| `tmux/` | `.tmux.conf` (mouse support) |
-| `claude/` | Claude Code statusline script (model, ctx %, rate limits, cost) |
-| `Brewfile` | Homebrew packages (iTerm2, Nerd Font, gh, tmux, node, python, go) |
-| `scripts/` | `bootstrap.sh` (fresh Mac) and `setup.sh` (post-clone) |
+Personal Mac development environment — one command to set up a fresh machine with all my dotfiles, tools, and preferences.
 
 ## Quick start (fresh Mac)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/lujcmss/mac-iterm2-setup/main/scripts/bootstrap.sh | bash
+curl -fsSL https://raw.githubusercontent.com/lujcmss/mac-setup/main/scripts/bootstrap.sh | bash
 ```
 
-This single command will:
+This single command installs Homebrew, generates an SSH key (pause to add to GitHub), clones this repo, and runs `setup.sh`. The script is re-runnable — if it pauses for SSH key setup, add the key to [GitHub SSH settings](https://github.com/settings/keys) and run it again.
 
-1. Install Homebrew
-2. Ensure git is available
-3. Generate an SSH key and copy it to clipboard (pause to add to GitHub)
-4. Clone this repo
-5. Install all brew packages (iTerm2, gh, tmux, node, python, go)
-6. Install Oh My Zsh + Powerlevel10k
-7. Symlink dotfiles (.gitconfig, .zshrc, .p10k.zsh, .vimrc, .tmux.conf, Claude statusline)
-8. Import iTerm2 preferences
+## What's included
 
-> **Claude Code statusline:** the script gets symlinked to `~/.claude/statusline-command.sh`.
-> To activate it, add this to `~/.claude/settings.json`:
+### Terminal & Shell
+| Path | Contents |
+|------|----------|
+| `iterm2/com.googlecode.iterm2.plist` | iTerm2 preferences (gruvbox theme, profiles, keybindings) |
+| `zsh/.zshrc` | Oh My Zsh + Powerlevel10k config |
+| `zsh/.p10k.zsh` | Powerlevel10k theme settings |
+| `tmux/.tmux.conf` | tmux config (mouse support enabled) |
+
+### Editors
+| Path | Contents |
+|------|----------|
+| `vim/.vimrc` | Vim config (syntax, indentation, search, UI, clipboard, mouse) |
+
+### Version Control
+| Path | Contents |
+|------|----------|
+| `git/.gitconfig` | Git user identity and aliases |
+| `ssh/` | SSH config templates (key generation handled by bootstrap) |
+
+### Claude Code
+| Path | Contents |
+|------|----------|
+| `claude/statusline-command.sh` | Status line script (dir + git, model + effort, ctx %, rate limits, cost) |
+
+### Package Management
+| Path | Contents |
+|------|----------|
+| `Brewfile` | Homebrew packages: iTerm2, MesloLGS Nerd Font, gh, tmux, node@22, python@3.11, go |
+
+### Setup Scripts
+| Path | Contents |
+|------|----------|
+| `scripts/bootstrap.sh` | Fresh-Mac entry point (Homebrew → git → SSH → clone → setup) |
+| `scripts/setup.sh` | Post-clone: brew bundle, Oh My Zsh, Powerlevel10k, symlink dotfiles |
+
+## Setup steps (what `setup.sh` does)
+
+1. Install Homebrew (if missing)
+2. Install all brew packages from `Brewfile`
+3. Install Oh My Zsh (if missing)
+4. Install Powerlevel10k (if missing)
+5. Symlink `.gitconfig`
+6. Symlink `.zshrc` and `.p10k.zsh`
+7. Symlink `.vimrc`
+8. Symlink `.tmux.conf`
+9. Symlink Claude statusline to `~/.claude/statusline-command.sh`
+10. Import iTerm2 preferences
+11. Verify GitHub CLI authentication
+
+> **Claude Code statusline activation:** the script gets symlinked to `~/.claude/statusline-command.sh`.
+> To activate, add this to `~/.claude/settings.json`:
 > ```json
 > "statusLine": { "type": "command", "command": "sh ~/.claude/statusline-command.sh" }
 > ```
 
-> **Note:** The script is re-runnable. If it pauses for SSH key setup, add the key to
-> [GitHub SSH settings](https://github.com/settings/keys), then run the command again.
-
 ## Updating configs
 
-After making changes to iTerm2, zsh, or git settings locally:
+After tweaking settings locally, sync them back:
 
 ```bash
-cd ~/mac-iterm2-setup
+cd ~/mac-setup
 plutil -convert xml1 -o iterm2/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
 cp ~/.zshrc zsh/.zshrc
 cp ~/.p10k.zsh zsh/.p10k.zsh

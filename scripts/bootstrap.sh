@@ -51,14 +51,14 @@ else
 fi
 
 # 5. Clone the repo if missing
-if [ ! -d "$HOME/mac-iterm2-setup" ]; then
+if [ ! -d "$HOME/mac-setup" ]; then
   echo "==> Cloning config repo..."
-  git clone git@github.com:lujcmss/mac-iterm2-setup.git "$HOME/mac-iterm2-setup"
+  git clone git@github.com:lujcmss/mac-setup.git "$HOME/mac-setup"
 else
   echo "==> Config repo already cloned, pulling latest..."
-  cd "$HOME/mac-iterm2-setup" && git pull
+  cd "$HOME/mac-setup" && git pull
 fi
 
 # 6. Hand off to setup script
 echo ""
-exec "$HOME/mac-iterm2-setup/scripts/setup.sh"
+exec "$HOME/mac-setup/scripts/setup.sh"
