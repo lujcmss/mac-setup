@@ -37,7 +37,6 @@ This single command installs Homebrew, generates an SSH key (pause to add to Git
 | `claude/settings.json` | Global settings (statusLine, effortLevel, theme, dangerous-mode prompt skip) |
 | `claude/settings.local.json` | Per-machine bash permission allowlist |
 | `claude/statusline-command.sh` | Status line script (dir + git, model + effort, ctx %, rate limits, cost) |
-| `claude/commands/*.md` | Custom slash commands (e.g. `/mac-setup`) |
 
 ### Package Management
 | Path | Contents |
@@ -61,7 +60,7 @@ This single command installs Homebrew, generates an SSH key (pause to add to Git
 7. Symlink `.vimrc`
 8. Symlink `.tmux.conf`
 9. Install Claude Code (`curl -fsSL https://claude.ai/install.sh | bash`; auto-upgrades on re-runs)
-10. Symlink Claude config: `settings.json`, `settings.local.json`, `statusline-command.sh`, and any slash commands in `claude/commands/`. Existing real files are backed up as `*.pre-mac-setup.bak` before the symlinks are created.
+10. Symlink Claude config: `settings.json`, `settings.local.json`, `statusline-command.sh`. Existing real files are backed up as `*.pre-mac-setup.bak` before the symlinks are created.
 11. Import iTerm2 preferences
 12. Verify GitHub CLI authentication
 
