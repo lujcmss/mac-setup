@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh-keygen:*)",
+      "Bash(ssh:*)",
+      "Bash(brew install:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)",
+      "Bash(plutil:*)",
+      "Bash(brew list:*)",
+      "Bash(cd:*)",
+      "Bash(cp:*)",
+      "Bash(chmod:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(du:*)",
+      "Bash(which openclaw:*)",
+      "Bash(npm list:*)",
+      "Bash(openclaw:*)"
+    ]
+  }
+}

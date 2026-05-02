@@ -60,24 +60,25 @@ else
   echo "==> Claude Code already installed"
 fi
 
-# 10. Symlink Claude Code statusline script + activate it in settings.json
-echo "==> Linking Claude Code statusline..."
-mkdir -p "$HOME/.claude"
+# 10. Symlink Claude Code config (settings, statusline, slash commands)
+echo "==> Linking Claude Code config..."
+mkdir -p "$HOME/.claude/commands"
+# Back up any pre-existing real files (not symlinks) before replacing with symlinks
+for f in settings.json settings.local.json statusline-command.sh; do
+  if [ -f "$HOME/.claude/$f" ] && [ ! -L "$HOME/.claude/$f" ]; then
+    mv "$HOME/.claude/$f" "$HOME/.claude/$f.pre-mac-setup.bak"
+    echo "    Backed up existing $f to $f.pre-mac-setup.bak"
+  fi
+done
+ln -sf "$REPO_DIR/claude/settings.json" "$HOME/.claude/settings.json"
+ln -sf "$REPO_DIR/claude/settings.local.json" "$HOME/.claude/settings.local.json"
 ln -sf "$REPO_DIR/claude/statusline-command.sh" "$HOME/.claude/statusline-command.sh"
-
-if [ ! -f "$HOME/.claude/settings.json" ]; then
-  echo "==> Creating Claude settings.json with statusLine entry..."
-  cat > "$HOME/.claude/settings.json" <<'JSON'
-{
-  "statusLine": {
-    "type": "command",
-    "command": "sh ~/.claude/statusline-command.sh"
-  }
-}
-JSON
-else
-  echo "==> Claude settings.json already exists — leaving it alone (add statusLine entry manually if needed)"
-fi
+# Symlink each slash command file individually so user-local commands aren't overwritten
+for cmd in "$REPO_DIR/claude/commands/"*.md; do
+  [ -e "$cmd" ] || continue
+  name=$(basename "$cmd")
+  ln -sf "$cmd" "$HOME/.claude/commands/$name"
+done
 
 # 11. Import iTerm2 preferences
 echo "==> Importing iTerm2 preferences..."

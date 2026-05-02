@@ -34,7 +34,10 @@ This single command installs Homebrew, generates an SSH key (pause to add to Git
 ### Claude Code
 | Path | Contents |
 |------|----------|
+| `claude/settings.json` | Global settings (statusLine, effortLevel, theme, dangerous-mode prompt skip) |
+| `claude/settings.local.json` | Per-machine bash permission allowlist |
 | `claude/statusline-command.sh` | Status line script (dir + git, model + effort, ctx %, rate limits, cost) |
+| `claude/commands/*.md` | Custom slash commands (e.g. `/mac-setup`) |
 
 ### Package Management
 | Path | Contents |
@@ -58,22 +61,21 @@ This single command installs Homebrew, generates an SSH key (pause to add to Git
 7. Symlink `.vimrc`
 8. Symlink `.tmux.conf`
 9. Install Claude Code (`curl -fsSL https://claude.ai/install.sh | bash`; auto-upgrades on re-runs)
-10. Symlink Claude statusline to `~/.claude/statusline-command.sh` and create `~/.claude/settings.json` with the `statusLine` entry (only if the file doesn't exist; otherwise the existing settings are left alone)
+10. Symlink Claude config: `settings.json`, `settings.local.json`, `statusline-command.sh`, and any slash commands in `claude/commands/`. Existing real files are backed up as `*.pre-mac-setup.bak` before the symlinks are created.
 11. Import iTerm2 preferences
 12. Verify GitHub CLI authentication
 
 ## Updating configs
 
-After tweaking settings locally, sync them back:
+Most files in this repo are symlinked to their `$HOME` location, so edits made via your editor (or `/config` for Claude Code) flow directly into the repo. To publish changes:
 
 ```bash
 cd ~/mac-setup
-plutil -convert xml1 -o iterm2/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
-cp ~/.zshrc zsh/.zshrc
-cp ~/.p10k.zsh zsh/.p10k.zsh
-cp ~/.gitconfig git/.gitconfig
-cp ~/.vimrc vim/.vimrc
-cp ~/.tmux.conf tmux/.tmux.conf
-cp ~/.claude/statusline-command.sh claude/statusline-command.sh
 git add -A && git commit -m "Update configs" && git push
+```
+
+The one exception is the iTerm2 plist, which iTerm2 writes to `~/Library/Preferences/` directly (not via symlink). Sync it back manually when you've changed iTerm2 preferences:
+
+```bash
+plutil -convert xml1 -o ~/mac-setup/iterm2/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
 ```
