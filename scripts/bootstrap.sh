@@ -42,7 +42,10 @@ fi
 
 # 4. Test GitHub connection
 echo "==> Testing GitHub SSH connection..."
-if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+# ssh -T to GitHub always exits 1 (no shell access); capture output so `set -o
+# pipefail` doesn't treat that as a failed connection.
+ssh_out="$(ssh -T git@github.com 2>&1 || true)"
+if grep -q "successfully authenticated" <<<"$ssh_out"; then
   echo "==> GitHub SSH connection OK"
 else
   echo "==> GitHub SSH not working. Add your key at: https://github.com/settings/keys"
