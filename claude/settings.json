@@ -1,9 +1,28 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(git:*)",
+      "Bash(grep:*)",
+      "Bash(python3:*)",
+      "Bash(python3.11:*)",
+      "Bash(pip3.11 list:*)",
+      "Bash(pip3.11 install:*)",
+      "Bash(pip3.11 show:*)",
+      "Bash(find /Users/lujcmss/.openclaw/workspace/quant-agent -name \"*.log\" -type f 2>/dev/null | head -5)",
+      "Skill(update-config)",
+      "WebFetch",
+      "Write"
+    ],
+    "defaultMode": "default"
+  },
+  "model": "claude-opus-4-7",
   "statusLine": {
     "type": "command",
     "command": "sh ~/.claude/statusline-command.sh"
   },
   "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
-  "theme": "light"
+  "theme": "auto",
+  "editorMode": "normal"
 }
