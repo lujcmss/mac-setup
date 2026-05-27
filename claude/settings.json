@@ -9,7 +9,7 @@
       "Bash(pip3.11 list:*)",
       "Bash(pip3.11 install:*)",
       "Bash(pip3.11 show:*)",
-      "Bash(find /Users/lujcmss/.openclaw/workspace/quant-agent -name \"*.log\" -type f 2>/dev/null | head -5)",
+      "Bash(find /Users/lujcmss/quant-agent -name \"*.log\" -type f 2>/dev/null | head -5)",
       "Skill(update-config)",
       "WebFetch",
       "Write"
