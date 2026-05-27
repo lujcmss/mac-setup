@@ -5,5 +5,5 @@
   },
   "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
-  "theme": "light-ansi"
+  "theme": "light"
 }
